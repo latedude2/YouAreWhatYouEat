@@ -1,0 +1,29 @@
+{
+  "name": "youarewhatyoueat",
+  "version": "1.0.0",
+  "description": "Game maybe",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack --watch & live-server --port=8085"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/latedude2/YouAreWhatYouEat.git"
+  },
+  "author": "Simonas Ceponis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/latedude2/YouAreWhatYouEat/issues"
+  },
+  "homepage": "https://github.com/latedude2/YouAreWhatYouEat#readme",
+  "devDependencies": {
+    "live-server": "^1.2.1",
+    "phaser": "^3.20.1",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.6.4",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9"
+  }
+}
