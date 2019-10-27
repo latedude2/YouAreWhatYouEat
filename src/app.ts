@@ -3,24 +3,25 @@ import { GameScene } from "./gameScene";
 import { WelcomeScene } from "./welcomeScene";
 
 const config: Phaser.Types.Core.GameConfig = {
+  type: Phaser.WEBGL,
   title: "Starfall",
   width: 800,
   height: 600,
-  parent: "game",
+  parent: "phaser-game",
   backgroundColor: "#18216D",
   scene: [WelcomeScene, GameScene],
   physics: {
     default: "arcade",
     arcade: {
-      debug: false
+      debug: true
     }
   },
 };
-export class StarfallGame extends Phaser.Game {
+export class AdaptionGame extends Phaser.Game {
   constructor(config: Phaser.Types.Core.GameConfig) {
     super(config);
   }
 }
 window.onload = () => {
-  var game = new StarfallGame(config);
+  var game = new AdaptionGame(config);
 };

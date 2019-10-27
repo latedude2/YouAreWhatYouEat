@@ -1,4 +1,5 @@
-import "phaser";
+import { Wall } from './gameObjects/wall';
+
 export class GameScene extends Phaser.Scene {
 delta: number;
 lastStarTime: number;
@@ -6,50 +7,72 @@ starsCaught: number;
 starsFallen: number;
 sand: Phaser.Physics.Arcade.StaticGroup;
 info: Phaser.GameObjects.Text;
+world: Phaser.Physics.Arcade.World;
+arcadeConfig: Phaser.Types.Physics.Arcade.ArcadeWorldConfig;
+walls: any;
+
+wall: Wall;
 
 constructor() {
     super({
       key: "GameScene"
     });
   }
+
 init(params): void {
     this.delta = 1000;
     this.lastStarTime = 0;
     this.starsCaught = 0;
     this.starsFallen = 0;
+    
   }
+
 preload(): void {
-    this.load.setBaseURL(
-        "https://raw.githubusercontent.com/mariyadavydova/" +
-        "starfall-phaser3-typescript/master/");
-      this.load.image("star", "assets/star.png");
-      this.load.image("sand", "assets/sand.jpg");
-  }
+  this.load.setBaseURL("dist/");
+  this.load.image("wall", "assets/wall.png");
+    
+}
+
+create(): void {
+
+  this.wall = new Wall(this, 100, 100);
   
-  create(): void {
-    this.sand = this.physics.add.staticGroup({
-        key: 'sand',
-        frameQuantity: 20
-      });
-      Phaser.Actions.PlaceOnLine(this.sand.getChildren(),
-        new Phaser.Geom.Line(20, 580, 820, 580));
-      this.sand.refresh();
-  this.info = this.add.text(10, 10, '',
-        { font: '24px Arial Bold', fill: '#FBFBAC' });
-  }
-  update(time: number): void {
-    var diff: number = time - this.lastStarTime;
-    if (diff > this.delta) {
-      this.lastStarTime = time;
-      if (this.delta > 500) {
-        this.delta -= 20;
-      }
-      this.emitStar();
+  this.physics.world.enable(this.wall);
+
+  this.wall.setVelocityX(500);
+
+  
+  /*
+  this.sand = this.physics.add.staticGroup({
+      key: 'sand',
+      frameQuantity: 20
+    });
+    Phaser.Actions.PlaceOnLine(this.sand.getChildren(),
+      new Phaser.Geom.Line(20, 580, 820, 580));
+    this.sand.refresh();
+this.info = this.add.text(10, 10, '',
+      { font: '24px Arial Bold', fill: '#FBFBAC' });
+      */
+}
+
+update(time: number): void {
+
+
+  /*
+  var diff: number = time - this.lastStarTime;
+  if (diff > this.delta) {
+    this.lastStarTime = time;
+    if (this.delta > 500) {
+      this.delta -= 20;
     }
-    this.info.text =
-      this.starsCaught + " caught - " +
-      this.starsFallen + " fallen (max 3)";
+    this.emitStar();
   }
+  this.info.text =
+    this.starsCaught + " caught - " +
+    this.starsFallen + " fallen (max 3)";
+    */
+}
+/*
 private onClick(star: Phaser.Physics.Arcade.Image): () => void {
     return function () {
       star.setTint(0x00ff00);
@@ -60,6 +83,7 @@ private onClick(star: Phaser.Physics.Arcade.Image): () => void {
       }, [star], this);
     }
   }
+
 private onFall(star: Phaser.Physics.Arcade.Image): () => void {
     return function () {
       star.setTint(0xff0000);
@@ -69,6 +93,7 @@ private onFall(star: Phaser.Physics.Arcade.Image): () => void {
       }, [star], this);
     }
   }
+
 private emitStar(): void {
     var star: Phaser.Physics.Arcade.Image;
     var x = Phaser.Math.Between(25, 775);
@@ -80,8 +105,7 @@ star.setDisplaySize(50, 50);
 star.on('pointerdown', this.onClick(star), this);
     this.physics.add.collider(star, this.sand, 
       this.onFall(star), null, this);
-  }
+  }  
 
-
-  
+  */
 };
