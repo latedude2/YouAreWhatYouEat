@@ -1,4 +1,6 @@
 import { Wall } from './gameObjects/wall';
+import { Player } from './gameObjects/Player';
+import { Mob } from './gameObjects/Mob';
 
 export class GameScene extends Phaser.Scene {
 delta: number;
@@ -11,7 +13,8 @@ world: Phaser.Physics.Arcade.World;
 arcadeConfig: Phaser.Types.Physics.Arcade.ArcadeWorldConfig;
 walls: any;
 
-wall: Wall;
+player: Player;
+controls: any;
 
 constructor() {
     super({
@@ -24,7 +27,7 @@ init(params): void {
     this.lastStarTime = 0;
     this.starsCaught = 0;
     this.starsFallen = 0;
-    
+    this.controls = this.input.keyboard.addKeys("W, A, S, D,");
   }
 
 preload(): void {
@@ -34,78 +37,17 @@ preload(): void {
 }
 
 create(): void {
-
-  this.wall = new Wall(this, 100, 100);
+  this.walls = this.add.group();
+  this.walls.add(new Mob(this, 300, 300, "wall"));
+  this.player = new Player(this, 100, 100, "wall");
   
-  this.physics.world.enable(this.wall);
+  this.physics.add.collider(this.walls, this.player);
 
-  this.wall.setVelocityX(500);
-
-  
-  /*
-  this.sand = this.physics.add.staticGroup({
-      key: 'sand',
-      frameQuantity: 20
-    });
-    Phaser.Actions.PlaceOnLine(this.sand.getChildren(),
-      new Phaser.Geom.Line(20, 580, 820, 580));
-    this.sand.refresh();
-this.info = this.add.text(10, 10, '',
-      { font: '24px Arial Bold', fill: '#FBFBAC' });
-      */
 }
 
 update(time: number): void {
+  this.player.update();
 
-
-  /*
-  var diff: number = time - this.lastStarTime;
-  if (diff > this.delta) {
-    this.lastStarTime = time;
-    if (this.delta > 500) {
-      this.delta -= 20;
-    }
-    this.emitStar();
-  }
-  this.info.text =
-    this.starsCaught + " caught - " +
-    this.starsFallen + " fallen (max 3)";
-    */
 }
-/*
-private onClick(star: Phaser.Physics.Arcade.Image): () => void {
-    return function () {
-      star.setTint(0x00ff00);
-      star.setVelocity(0, 0);
-      this.starsCaught += 1;
-      this.time.delayedCall(100, function (star) {
-        star.destroy();
-      }, [star], this);
-    }
-  }
 
-private onFall(star: Phaser.Physics.Arcade.Image): () => void {
-    return function () {
-      star.setTint(0xff0000);
-      this.starsFallen += 1;
-      this.time.delayedCall(100, function (star) {
-        star.destroy();
-      }, [star], this);
-    }
-  }
-
-private emitStar(): void {
-    var star: Phaser.Physics.Arcade.Image;
-    var x = Phaser.Math.Between(25, 775);
-    var y = 26;
-    star = this.physics.add.image(x, y, "star");
-star.setDisplaySize(50, 50);
-    star.setVelocity(0, 200);
-    star.setInteractive();
-star.on('pointerdown', this.onClick(star), this);
-    this.physics.add.collider(star, this.sand, 
-      this.onFall(star), null, this);
-  }  
-
-  */
 };

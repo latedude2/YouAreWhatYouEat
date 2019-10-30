@@ -3,9 +3,15 @@
   "version": "1.0.0",
   "description": "Game maybe",
   "main": "index.js",
+  "contributors": [
+    {
+      "name": "Simonas Ceponis",
+      "email": "simonas.ceponis@gmail.com"
+    }
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
+    "build": "webpack && npx serve",
     "start": "npx serve"
   },
   "repository": {
