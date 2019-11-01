@@ -1,4 +1,4 @@
-import { Wall } from './gameObjects/wall';
+import { Wall } from './gameObjects/Wall';
 import { Player } from './gameObjects/Player';
 import { Mob } from './gameObjects/Mob';
 
@@ -49,5 +49,6 @@ update(time: number): void {
   this.player.update();
 
 }
+
 
 };

@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 import { GameScene } from '../gameScene';
 import { Mob } from './Mob';
+import { Trait } from '../Trait';
 
 
 export class Player extends Mob {
@@ -12,6 +13,7 @@ export class Player extends Mob {
     }
 
     update() {
+        super.update();
         this.movement();
         this.rotate();
     }
