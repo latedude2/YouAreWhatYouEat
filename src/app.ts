@@ -5,7 +5,7 @@ import { WelcomeScene } from "./welcomeScene";
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.WEBGL,
   title: "Starfall",
-  width: 800,
+  width: 1000,
   height: 600,
   parent: "phaser-game",
   backgroundColor: "#18216D",

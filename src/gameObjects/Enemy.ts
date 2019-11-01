@@ -7,20 +7,23 @@ export class Enemy extends Mob {
 
     constructor(scene: GameScene, x: number, y: number, spriteKey: string) {
         super(scene, x, y, spriteKey);
-
+        
+        this.sizeMultiplier = 1.5;
         this.maxHealth = 100;
-        this.currentHealth = this.maxHealth;
         this.acceleration = 150;
+        this.maxSpeed = 150;
         this.collisionDamage = 5;
+        this.setValues();
     }
 
     update() {
         super.update();
-        this.movement();
         this.rotate();
+        this.movement();
+        this.death();
     }
 
-    rotate() {
+    rotate() { //make more natural rotation using angularAcceleration
         var x = this.x - this.scene.player.x;
         var y = this.y - this.scene.player.y;
         this.rotation = Math.atan2(y, x);
@@ -29,5 +32,13 @@ export class Enemy extends Mob {
     movement() {
         this.setAccelerationX(Math.cos(this.rotation) * -this.acceleration);
         this.setAccelerationY(Math.sin(-this.rotation) * this.acceleration);
+    }
+
+    death() {
+        if(this.currentHealth <= 0) {
+            this.scene.destroyObject(this.healthBarVisual);
+            this.scene.destroyObject(this.bodyVisual);
+            this.scene.destroyObject(this);
+        }
     }
 }
