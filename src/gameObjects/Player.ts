@@ -9,9 +9,14 @@ export class Player extends Mob {
     constructor(scene: GameScene, x: number, y: number, spriteKey: string)
     {
         super(scene, x, y, spriteKey);
+
+        this.maxHealth = 100;
+        this.currentHealth = this.maxHealth;
+        this.damage = 10;
     }
 
     update() {
+        super.update();
         this.movement();
         this.rotate();
     }
@@ -24,22 +29,21 @@ export class Player extends Mob {
     movement()
     {
         if(this.scene.controls.S.isDown){
-            this.setAccelerationY(this.speed);
+            this.setAccelerationY(this.acceleration);
         }   
         else if(this.scene.controls.W.isDown)
         {
-            this.setAccelerationY(-this.speed);
+            this.setAccelerationY(-this.acceleration);
         }
         else this.setAccelerationY(0);
 
         if(this.scene.controls.A.isDown){
-            this.setAccelerationX(-this.speed);
+            this.setAccelerationX(-this.acceleration);
         }
         else if(this.scene.controls.D.isDown)
         {
-            this.setAccelerationX(this.speed);
+            this.setAccelerationX(this.acceleration);
         }
         else this.setAccelerationX(0);
     }
-
 }

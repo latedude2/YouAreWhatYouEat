@@ -14,5 +14,4 @@ export class Wall extends Phaser.Physics.Arcade.Sprite {
         scene.physics.world.enable(this, 1);
         this.setCircle(50);
     }
-
 }
