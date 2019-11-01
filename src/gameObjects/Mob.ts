@@ -4,12 +4,14 @@ import { GameScene } from '../gameScene';
 
 export class Mob extends Phaser.Physics.Arcade.Sprite {
     scene: GameScene;
-    
+
     //Mob attributes
     maxHealth: number = 1;
     currentHealth: number;
-    acceleration: number = 300;
-    damage: number;
+    acceleration: number = 100;
+    collisionDamage: number;
+    meleeDamage: number;
+    rangedDamage: number;
 
     //Mob visuals
     healthBarVisual: any;
@@ -17,8 +19,7 @@ export class Mob extends Phaser.Physics.Arcade.Sprite {
     healthBarOffset: number = 100;
     bodyVisual: any;
 
-    constructor(scene: GameScene, x: number, y: number, spriteKey: string)
-    {
+    constructor(scene: GameScene, x: number, y: number, spriteKey: string) {
         super(scene, x, y, spriteKey);
         this.scene = scene;
         scene.sys.displayList.add(this);
@@ -30,7 +31,7 @@ export class Mob extends Phaser.Physics.Arcade.Sprite {
         this.setMaxVelocity(300);
         this.setBounce(1);
         this.setCollideWorldBounds(true);
-        
+
         this.healthBarVisual = this.scene.add.rectangle(this.x, this.y, 80, 10, 0x6cf9aa);
         this.bodyVisual = this.scene.add.circle(this.x, this.y, 80, 0x6666ff);
     }
@@ -38,8 +39,17 @@ export class Mob extends Phaser.Physics.Arcade.Sprite {
     update() {
         this.healthBarVisual.x = this.x;
         this.healthBarVisual.y = this.y - 100;
-        this.healthBarVisual.width = (this.currentHealth/this.maxHealth) * this.healthBarSize;
         this.bodyVisual.x = this.x;
         this.bodyVisual.y = this.y;
+    }
+
+    takeDamage(damage: number) {
+        if (this.currentHealth > 0) {
+            this.currentHealth -= damage;
+            if (this.currentHealth < 0) {
+                this.currentHealth = 0;
+            }
+            this.healthBarVisual.width = (this.currentHealth / this.maxHealth) * this.healthBarSize;
+        }
     }
 }
