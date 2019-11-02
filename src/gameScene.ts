@@ -27,6 +27,7 @@ export class GameScene extends Phaser.Scene {
   preload(): void {
     this.load.setBaseURL("dist/");
     this.load.image("wall", "assets/wall.png");
+    this.load.image("transparent", "assets/transparent.png");
   }
 
   create(): void {
@@ -39,11 +40,18 @@ export class GameScene extends Phaser.Scene {
 
   update(): void {
     this.player.update();
-    this.spawnEnemies();
+    if (this.enemies.getLength() == 0) {
+      this.spawnEnemies();
+    }
+  }
+
+  //Use to randomize stat values. Value1 is base value, value2 is deviation from 0-1, e.g putting in 10 and .3 outputs a number between 8.5 and 11.5
+  statRandomizer(value1: number, value2: number): number {
+    return value1 * ((1 - (value2 / 2)) + Math.random() * value2);
   }
 
   spawnEnemies() {
-    if (this.enemies.getLength() < 3) {
+    for (let index = 0; this.enemies.getLength() < 3; index++) {
       this.enemies.add(new Enemy(this, Math.random() * 1000, Math.random() * 600, "wall"));
     }
   }

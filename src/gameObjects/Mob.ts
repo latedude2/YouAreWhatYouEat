@@ -32,8 +32,8 @@ export class Mob extends Phaser.Physics.Arcade.Sprite {
         this.setBounce(1);
         this.setCollideWorldBounds(true);
 
+        //this.bodyVisual = this.scene.add.circle(this.x, this.y, this.sizeMultiplier * 35, 0x6666ff);
         this.healthBarVisual = this.scene.add.rectangle(this.x, this.y, 80, 10, 0x6cf9aa);
-        this.bodyVisual = this.scene.add.circle(this.x, this.y, this.sizeMultiplier * 35, 0x6666ff);
         this.setValues();
     }
 
@@ -41,7 +41,7 @@ export class Mob extends Phaser.Physics.Arcade.Sprite {
         this.currentHealth = this.maxHealth;
         this.setScale(this.sizeMultiplier);
         this.setMaxVelocity(this.maxSpeed);
-        this.bodyVisual.radius = this.sizeMultiplier * 35;
+        //this.bodyVisual.radius = this.sizeMultiplier * 35;
     }
 
     update() {
@@ -61,7 +61,7 @@ export class Mob extends Phaser.Physics.Arcade.Sprite {
     updateVisuals() {
         this.healthBarVisual.x = this.x;
         this.healthBarVisual.y = this.y - (this.healthBarOffset * this.sizeMultiplier);
-        this.bodyVisual.x = this.x;
-        this.bodyVisual.y = this.y;
+        /*this.bodyVisual.x = this.x;
+        this.bodyVisual.y = this.y;*/
     }
 }

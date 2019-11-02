@@ -9,11 +9,12 @@ export class Player extends Mob {
     constructor(scene: GameScene, x: number, y: number, spriteKey: string) {
         super(scene, x, y, spriteKey);
 
-        this.sizeMultiplier = 2;
+        this.sizeMultiplier = 1.3;
         this.maxHealth = 100;
         this.acceleration = 600;
-        this.maxSpeed = 600;
+        this.maxSpeed = 300;
         this.collisionDamage = 10;
+        this.setTint(0x8fff53);
         this.setValues();
     }
 
