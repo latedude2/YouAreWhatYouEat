@@ -2,6 +2,7 @@
 A game made using Phaser 3.
 
 
+
 How to work on the code:
 
 Install visual studio code.
@@ -11,6 +12,7 @@ Install nodejs.
 Install typescript.
 
 Install typescript extention pack (Probably not necesarry).
+
 
 
 How to run:
