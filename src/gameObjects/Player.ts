@@ -32,8 +32,8 @@ export class Player extends Mob {
         var angleDelta = Phaser.Math.Angle.Wrap(angleRad - this.rotation);
           
         if (Phaser.Math.Within(angleDelta, 0, this.rotationalTolerance)) {
-          this.rotation = angleRad;
-          this.setAngularVelocity(0);
+            this.setAngularVelocity(0);
+            this.rotation = angleRad;
         } else if (angleDelta > 0) {
             this.setAngularVelocity(1 * this.rotationalSpeedDeg);
         } else if (angleDelta < 0) {

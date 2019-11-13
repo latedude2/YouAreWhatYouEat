@@ -25,7 +25,7 @@ export class Enemy extends Mob {
         this.death();
     }
 
-    rotate() { //  !--make more natural rotation using angularAcceleration--!
+    rotate() {
         var x = this.scene.player.x - this.x;
         var y = this.scene.player.y - this.y;
         var angleRad = Math.atan2(y, x);

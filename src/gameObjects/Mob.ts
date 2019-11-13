@@ -7,6 +7,7 @@ export class Mob extends Phaser.Physics.Arcade.Sprite {
 
     //Mob attributes
     sizeMultiplier: number = 1;
+    mass: number = 1;
     maxHealth: number = 1;
     currentHealth: number;
     acceleration: number = 100;
