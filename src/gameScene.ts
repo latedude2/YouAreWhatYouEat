@@ -1,4 +1,4 @@
-import { Wall } from './gameObjects/wall';
+import { Wall } from './gameObjects/Wall';
 import { Player } from './gameObjects/Player';
 import { Enemy } from './gameObjects/Enemy';
 import { Mob } from './gameObjects/Mob';
@@ -64,5 +64,6 @@ export class GameScene extends Phaser.Scene {
   destroyObject(object) {
     object.destroy();
   }
+
 
 };

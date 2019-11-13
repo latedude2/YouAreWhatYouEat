@@ -1,9 +1,12 @@
 import * as Phaser from 'phaser';
 import { GameScene } from '../gameScene';
+import { Trait } from '../Trait';
 
 
-export class Mob extends Phaser.Physics.Arcade.Sprite {
-    scene: GameScene;
+export class Mob extends Phaser.Physics.Arcade.Sprite{
+    scene : GameScene;
+    trait: Trait;
+
 
     //Mob attributes
     sizeMultiplier: number = 1;
