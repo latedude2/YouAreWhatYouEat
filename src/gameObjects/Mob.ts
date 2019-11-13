@@ -5,21 +5,30 @@ import { Trait } from '../Trait';
 
 export class Mob extends Phaser.Physics.Arcade.Sprite{
     scene : GameScene;
-    trait: Trait;
 
 
     //Mob attributes
     sizeMultiplier: number = 1;
+    trait: Trait;
+
+    //Damage
+    collisionDamage: number;
+    meleeDamage: number;
+    rangedDamage: number;
+
+    //Health
     maxHealth: number = 1;
     currentHealth: number;
+
+    //Movement
     acceleration: number = 100;
     maxSpeed: number = 300;
     rotationalSpeed: number = 1 * Math.PI;
     rotationalSpeedDeg: number;
     rotationalTolerance: number;
-    collisionDamage: number;
-    meleeDamage: number;
-    rangedDamage: number;
+    mass: number = 1;
+    drag: number = 50;
+
 
     //Mob visuals
     healthBarVisual: any;
@@ -34,7 +43,7 @@ export class Mob extends Phaser.Physics.Arcade.Sprite{
         scene.physics.world.enable(this);
         this.setCircle(32);
         this.setOrigin(0.5, 0.5);
-        this.setDrag(50);
+        this.setDrag(this.drag);
         this.setBounce(1);
         this.setCollideWorldBounds(true);
 
@@ -54,6 +63,7 @@ export class Mob extends Phaser.Physics.Arcade.Sprite{
 
     update() {
         this.updateVisuals();
+        this.limitSpeed();
     }
 
     takeDamage(damage: number) {
@@ -75,5 +85,17 @@ export class Mob extends Phaser.Physics.Arcade.Sprite{
         this.healthBarVisual.y = this.y - (this.healthBarOffset * this.sizeMultiplier);
         /*this.bodyVisual.x = this.x;
         this.bodyVisual.y = this.y;*/
+    }
+
+    limitSpeed()
+    {
+        if(Math.sqrt(this.body.velocity.x**2 + this.body.velocity.y**2) > this.maxSpeed)
+        {
+            let normalised  = this.body.velocity.normalize();
+            let bod = this.body as unknown as Phaser.Physics.Arcade.Body;
+            bod.setVelocityX(normalised.x * this.maxSpeed); 
+            bod.setVelocityY(normalised.y * this.maxSpeed);
+
+        }
     }
 }
