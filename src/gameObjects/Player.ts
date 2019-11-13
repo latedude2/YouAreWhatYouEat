@@ -13,6 +13,7 @@ export class Player extends Mob {
         this.maxHealth = 100;
         this.acceleration = 600;
         this.maxSpeed = 300;
+        this.rotationalSpeed = 1 * Math.PI;
         this.collisionDamage = 10;
         this.setTint(0x8fff53);
         this.setValues();
@@ -25,7 +26,19 @@ export class Player extends Mob {
     }
 
     rotate() {
-        this.rotation = Phaser.Math.Angle.Between(this.x, this.y, this.scene.input.mousePointer.x + this.scene.cameras.main.scrollX, this.scene.input.mousePointer.y + this.scene.cameras.main.scrollY);
+        var x = this.scene.input.mousePointer.x + this.scene.cameras.main.scrollX - this.x;
+        var y = this.scene.input.mousePointer.y + this.scene.cameras.main.scrollY - this.y;
+        var angleRad = Math.atan2(y, x);
+        var angleDelta = Phaser.Math.Angle.Wrap(angleRad - this.rotation);
+          
+        if (Phaser.Math.Within(angleDelta, 0, this.rotationalTolerance)) {
+          this.rotation = angleRad;
+          this.setAngularVelocity(0);
+        } else if (angleDelta > 0) {
+            this.setAngularVelocity(1 * this.rotationalSpeedDeg);
+        } else if (angleDelta < 0) {
+            this.setAngularVelocity(-1 * this.rotationalSpeedDeg);
+        } else this.setAngularVelocity(0);
     }
 
     movement() {

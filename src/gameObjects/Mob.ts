@@ -11,6 +11,9 @@ export class Mob extends Phaser.Physics.Arcade.Sprite {
     currentHealth: number;
     acceleration: number = 100;
     maxSpeed: number = 300;
+    rotationalSpeed: number = 1 * Math.PI;
+    rotationalSpeedDeg: number;
+    rotationalTolerance: number;
     collisionDamage: number;
     meleeDamage: number;
     rangedDamage: number;
@@ -38,6 +41,8 @@ export class Mob extends Phaser.Physics.Arcade.Sprite {
     }
 
     setValues() {
+        this.rotationalSpeedDeg = Phaser.Math.RadToDeg(this.rotationalSpeed);
+        this.rotationalTolerance = this.rotationalSpeed * .03;
         this.currentHealth = this.maxHealth;
         this.setScale(this.sizeMultiplier);
         this.setMaxVelocity(this.maxSpeed);

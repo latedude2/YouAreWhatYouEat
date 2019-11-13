@@ -24,4 +24,4 @@ Use type "npx serve" in the console to run the game.
 
 
 
-Made by Simonas Čeponis and Mikkel Munk
+Made by Simonas Čepenis and Mikkel Munk

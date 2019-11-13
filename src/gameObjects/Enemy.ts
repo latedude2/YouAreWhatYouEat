@@ -12,6 +12,7 @@ export class Enemy extends Mob {
         this.maxHealth = this.scene.statRandomizer(50, .3);
         this.acceleration = this.scene.statRandomizer(150, .3);
         this.maxSpeed = this.scene.statRandomizer(150, .3);
+        this.rotationalSpeed = 1 * Math.PI;
         this.collisionDamage = this.scene.statRandomizer(5, .3);
         this.setTint(0xff8953);
         this.setValues();
@@ -27,7 +28,14 @@ export class Enemy extends Mob {
     rotate() { //  !--make more natural rotation using angularAcceleration--!
         var x = this.scene.player.x - this.x;
         var y = this.scene.player.y - this.y;
-        this.rotation = Math.atan2(y, x);
+        var angleRad = Math.atan2(y, x);
+        var angleDelta = Phaser.Math.Angle.Wrap(angleRad - this.rotation);
+          
+        if (angleDelta > 0) {
+            this.setAngularVelocity(1 * this.rotationalSpeedDeg*.5);
+        } else if (angleDelta < 0) {
+            this.setAngularVelocity(-1 * this.rotationalSpeedDeg*.5);
+        } else this.setAngularVelocity(0);
     }
 
     movement() {

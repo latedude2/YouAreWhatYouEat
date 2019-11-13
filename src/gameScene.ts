@@ -51,7 +51,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   spawnEnemies() {
-    for (let index = 0; this.enemies.getLength() < 3; index++) {
+    while (this.enemies.getLength() < 5) {
       this.enemies.add(new Enemy(this, Math.random() * 1000, Math.random() * 600, "wall"));
     }
   }
