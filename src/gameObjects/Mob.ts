@@ -10,7 +10,6 @@ export class Mob extends Phaser.Physics.Arcade.Sprite{
 
     //Mob attributes
     sizeMultiplier: number = 1;
-    mass: number = 1;
     maxHealth: number = 1;
     currentHealth: number;
     acceleration: number = 100;
@@ -65,6 +64,10 @@ export class Mob extends Phaser.Physics.Arcade.Sprite{
             }
             this.healthBarVisual.width = (this.currentHealth / this.maxHealth) * this.healthBarSize;
         }
+    }
+
+    getTotalVelocity() {
+        return Math.sqrt(this.body.velocity.x**2 + this.body.velocity.y**2);
     }
 
     updateVisuals() {
