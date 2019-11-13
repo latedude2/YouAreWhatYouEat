@@ -1,6 +1,7 @@
 import { Wall } from './gameObjects/Wall';
 import { Player } from './gameObjects/Player';
 import { Enemy } from './gameObjects/Enemy';
+import { Projectile }  from './gameObjects/Projectile';
 import { Mob } from './gameObjects/Mob';
 
 export class GameScene extends Phaser.Scene {
@@ -10,6 +11,8 @@ export class GameScene extends Phaser.Scene {
   arcadeConfig: Phaser.Types.Physics.Arcade.ArcadeWorldConfig;
   walls: any;
   enemies: any;
+  enemyProjectiles: any;
+  friendlyProjectiles: any;
 
   player: Player;
   controls: any;
@@ -32,10 +35,18 @@ export class GameScene extends Phaser.Scene {
 
   create(): void {
     this.enemies = this.add.group({ runChildUpdate: true });
+    this.enemyProjectiles = this.add.group({ runChildUpdate: true });
+    this.friendlyProjectiles = this.add.group({ runChildUpdate: true });
     this.player = new Player(this, 100, 100, "wall");
+    
+    this.input.on('pointerdown', function (pointer) {
+      this.player.mouseClick();
+    }, this);
 
     //this.physics.add.collider(this.enemies, this.enemies);
     this.physics.add.collider(this.player, this.enemies, this.playerAndEnemyCollision, null, this);
+    this.physics.add.collider(this.player, this.enemyProjectiles, this.mobAndProjectileCollision, null, this);
+    this.physics.add.collider(this.enemies, this.friendlyProjectiles, this.mobAndProjectileCollision, null, this);
   }
 
   update(): void {
@@ -50,22 +61,31 @@ export class GameScene extends Phaser.Scene {
     return value1 * ((1 - (value2 / 2)) + Math.random() * value2);
   }
 
+  //refine when we add multiple types
   spawnEnemies() {
     while (this.enemies.getLength() < 5) {
       this.enemies.add(new Enemy(this, Math.random() * 1000, Math.random() * 600, "wall"));
     }
   }
 
+  spawnFriendlyProjectile() {
+    this.friendlyProjectiles.add(new Projectile(this, this.player, "wall"));
+  }
+
   playerAndEnemyCollision(player, enemy) {
     if(player.getTotalVelocity() >= 50) {
-      var hitDamage = player.collisionDamage * player.getTotalVelocity() / player.maxSpeed
+      let hitDamage = player.collisionDamage * player.getTotalVelocity() / player.maxSpeed;
       enemy.takeDamage(hitDamage);
     }
-
     if(enemy.getTotalVelocity() >= 50) {
-      var hitDamage = enemy.collisionDamage * enemy.getTotalVelocity() / enemy.maxSpeed
+      let hitDamage = enemy.collisionDamage * enemy.getTotalVelocity() / enemy.maxSpeed;
       player.takeDamage(hitDamage);
     }
+  }
+
+  mobAndProjectileCollision(mob, projectile) {
+      mob.takeDamage(projectile.damage);
+      projectile.destroy();
   }
 
   destroyObject(object) {

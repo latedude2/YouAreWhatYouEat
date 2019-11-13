@@ -12,7 +12,7 @@ export class Enemy extends Mob {
         this.maxHealth = this.scene.statRandomizer(50, .3);
         this.acceleration = this.scene.statRandomizer(150, .3);
         this.maxSpeed = this.scene.statRandomizer(150, .3);
-        this.rotationalSpeed = 1 * Math.PI;
+        this.rotationalSpeed = .8 * Math.PI;
         this.collisionDamage = this.scene.statRandomizer(5, .3);
         this.setTint(0xff8953);
         this.setValues();

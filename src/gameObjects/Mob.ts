@@ -4,7 +4,7 @@ import { Trait } from '../Trait';
 
 
 export class Mob extends Phaser.Physics.Arcade.Sprite{
-    scene : GameScene;
+    scene: GameScene;
     trait: Trait;
 
 
@@ -17,9 +17,9 @@ export class Mob extends Phaser.Physics.Arcade.Sprite{
     rotationalSpeed: number = 1 * Math.PI;
     rotationalSpeedDeg: number;
     rotationalTolerance: number;
-    collisionDamage: number;
-    meleeDamage: number;
-    rangedDamage: number;
+    collisionDamage: number = 0;
+    meleeDamage: number = 0;
+    rangedDamage: number = 0;
 
     //Mob visuals
     healthBarVisual: any;
