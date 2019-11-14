@@ -4,6 +4,8 @@ import { Mob } from './Mob';
 
 
 export class Enemy extends Mob {
+    targetPosX: number;
+    targetPosY: number;
 
     constructor(scene: GameScene, x: number, y: number, spriteKey: string) {
         super(scene, x, y, spriteKey);
@@ -17,18 +19,24 @@ export class Enemy extends Mob {
         this.collisionDamage = this.baseCollisionDamage;
         this.setTint(0xff8953);
         this.setValues();
+
     }
 
     update() {
         super.update();
+
+        //Temp solution to set target values
+        this.targetPosX = this.scene.player.x;
+        this.targetPosY = this.scene.player.y;
+
         this.rotate();
         this.movement();
         this.death();
     }
 
     rotate() {
-        var x = this.scene.player.x - this.x;
-        var y = this.scene.player.y - this.y;
+        var x = this.targetPosX - this.x;
+        var y = this.targetPosY - this.y;
         var angleRad = Math.atan2(y, x);
         var angleDelta = Phaser.Math.Angle.Wrap(angleRad - this.rotation);
           
