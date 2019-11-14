@@ -6,7 +6,6 @@ import { Trait } from '../Trait';
 export class Mob extends Phaser.Physics.Arcade.Sprite{
     scene : GameScene;
 
-
     //Mob attributes
     sizeMultiplier: number = 1;
     trait: Trait;

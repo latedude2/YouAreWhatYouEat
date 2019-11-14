@@ -16,6 +16,7 @@ export class Player extends Mob {
         this.maxSpeed = 300;
         this.rotationalSpeed = 1 * Math.PI;
         this.collisionDamage = 10;
+        this.rangedDamage = 10;
         this.setTint(0x8fff53);
         this.setValues();
     }
@@ -58,5 +59,9 @@ export class Player extends Mob {
             this.setAccelerationX(this.acceleration);
         }
         else this.setAccelerationX(0);
+    }
+
+    mouseClick() {
+        this.scene.spawnFriendlyProjectile();
     }
 }
