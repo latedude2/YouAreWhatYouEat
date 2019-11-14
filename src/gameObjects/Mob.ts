@@ -42,7 +42,7 @@ export class Mob extends Phaser.Physics.Arcade.Sprite{
         this.setOrigin(0.5, 0.5);
         this.setDrag(this.drag);
         this.setBounce(1);
-        this.setCollideWorldBounds(true);
+        this.setCollideWorldBounds(false);
 
         //this.bodyVisual = this.scene.add.circle(this.x, this.y, this.sizeMultiplier * 35, 0x6666ff);
         this.healthBarVisual = this.scene.add.rectangle(this.x, this.y, 80, 10, 0x6cf9aa);

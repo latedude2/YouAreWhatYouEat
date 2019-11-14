@@ -39,6 +39,8 @@ export class GameScene extends Phaser.Scene {
     this.friendlyProjectiles = this.add.group({ runChildUpdate: true });
     this.player = new Player(this, 100, 100, "wall");
     
+    this.cameras.main.startFollow(this.player);
+
     this.input.on('pointerdown', function (pointer) {
       this.player.mouseClick();
     }, this);

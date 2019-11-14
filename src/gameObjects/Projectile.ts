@@ -19,7 +19,8 @@ export class Projectile extends Phaser.Physics.Arcade.Sprite{
         this.setOrigin(0.5, 0.5);
         this.setDrag(50);
         this.setBounce(1);
-        this.setCollideWorldBounds(true);
+        this.setCollideWorldBounds(false);
+        this.setScale(.1);
         this.rotation = owner.rotation;
         this.damage = owner.rangedDamage;
 

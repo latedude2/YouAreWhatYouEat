@@ -25,6 +25,8 @@ export class Player extends Mob {
         super.update();
         this.rotate();
         this.movement();
+
+        console.log(this.x + " and " + this.y);
     }
 
     rotate() {
