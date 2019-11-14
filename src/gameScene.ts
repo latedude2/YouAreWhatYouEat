@@ -73,11 +73,11 @@ export class GameScene extends Phaser.Scene {
   }
 
   playerAndEnemyCollision(player, enemy) {
-    if(player.getTotalVelocity() >= 50) {
+    if(player.getTotalVelocity() >= 100) {
       let hitDamage = player.collisionDamage * player.getTotalVelocity() / player.maxSpeed;
       enemy.takeDamage(hitDamage);
     }
-    if(enemy.getTotalVelocity() >= 50) {
+    if(enemy.getTotalVelocity() >= 100) {
       let hitDamage = enemy.collisionDamage * enemy.getTotalVelocity() / enemy.maxSpeed;
       player.takeDamage(hitDamage);
     }
