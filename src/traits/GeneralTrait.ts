@@ -9,4 +9,5 @@ export abstract class GeneralTrait extends Trait{
     }
 
     abstract update()
+    abstract resetProperties()
 }

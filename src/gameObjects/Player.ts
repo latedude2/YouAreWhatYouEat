@@ -3,6 +3,8 @@ import { GameScene } from '../gameScene';
 import { Mob } from './Mob';
 import { Trait } from '../traits/Trait';
 import { Speed1 } from '../traits/mobility/Speed1';
+import { Pinball } from '../traits/general/Pinball';
+
 
 
 export class Player extends Mob {
@@ -12,24 +14,24 @@ export class Player extends Mob {
         super(scene, x, y, spriteKey);
 
         this.sizeMultiplier = 1.3;
-        this.originalAcceleration = 600;
+        this.baseAcceleration = 600;
         this.maxHealth = 100;
         this.maxSpeed = 300;
         this.rotationalSpeed = 1 * Math.PI;
-        this.collisionDamage = 10;
+        this.baseCollisionDamage = 10;
+        this.collisionDamage = this.baseCollisionDamage;
         this.rangedDamage = 10;
         this.setTint(0x8fff53);
         this.setValues();
 
         this.traits.push(new Speed1(this));
+        this.traits.push(new Pinball(this))
     }
 
     update() {
         super.update();
         this.rotate();
         this.movement();
-
-        console.log(this.x + " and " + this.y);
     }
 
     rotate() {

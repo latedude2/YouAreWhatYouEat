@@ -8,4 +8,5 @@ export abstract class OffensiveTrait extends Trait{
     }
 
     abstract update()
+    abstract resetProperties()
 }

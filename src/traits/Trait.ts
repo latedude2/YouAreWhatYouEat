@@ -8,6 +8,6 @@ export abstract class Trait{
     }
 
     abstract update()
-    
+    abstract resetProperties()
     
 }

@@ -14,19 +14,21 @@ export class Mob extends Phaser.Physics.Arcade.Sprite{
     currentHealth: number;
 
     //Damage
+    baseCollisionDamage;
     collisionDamage: number = 0;
     meleeDamage: number = 0;
     rangedDamage: number = 0;
 
     //Movement
-    originalAcceleration = 100;
+    baseAcceleration = 100;
     acceleration: number = 100;
-    originalMaxSpeed: number = 300;
+    baseMaxSpeed: number = 300;
     maxSpeed: number;
     rotationalSpeed: number = 1 * Math.PI;
     rotationalSpeedDeg: number;
     rotationalTolerance: number;
     drag: number = 50;
+    baseBounce = 1;
 
     //Mob visuals
     healthBarVisual: any;
@@ -42,7 +44,7 @@ export class Mob extends Phaser.Physics.Arcade.Sprite{
         this.setCircle(32);
         this.setOrigin(0.5, 0.5);
         this.setDrag(this.drag);
-        this.setBounce(1);
+        this.setBounce(this.baseBounce);
         this.setCollideWorldBounds(false);
 
         this.healthBarVisual = this.scene.add.rectangle(this.x, this.y, 80, 10, 0x6cf9aa);
@@ -54,7 +56,7 @@ export class Mob extends Phaser.Physics.Arcade.Sprite{
         this.rotationalTolerance = this.rotationalSpeed * .03;
         this.currentHealth = this.maxHealth;
         this.setScale(this.sizeMultiplier);
-        this.maxSpeed = this.originalMaxSpeed;
+        this.maxSpeed = this.baseMaxSpeed;
         this.setMaxVelocity(this.maxSpeed);
     }
 
@@ -97,14 +99,15 @@ export class Mob extends Phaser.Physics.Arcade.Sprite{
 
     resetOriginalProperties()
     {
-        this.maxSpeed = this.originalMaxSpeed;
-        this.originalAcceleration = this.originalAcceleration;
+        for(let trait of this.traits)
+        {
+            trait.resetProperties();
+        }
     }
 
     handleTraits(){
         for(let trait of this.traits)
         {
-            console.log("Handling traits")
             trait.update();
         }
     }

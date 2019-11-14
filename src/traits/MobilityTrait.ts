@@ -8,4 +8,5 @@ export abstract class MobilityTrait extends Trait{
     }
 
     abstract update()
+    abstract resetProperties()
 }
