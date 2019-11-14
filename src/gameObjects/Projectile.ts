@@ -4,6 +4,8 @@ import { Mob } from './Mob';
 
 export class Projectile extends Phaser.Physics.Arcade.Sprite{
     scene: GameScene;
+    ownerRelativeSpeedX: number;
+    ownerRelativeSpeedY: number;
 
     //Projectile attributes
     damage: number = 0;
@@ -31,8 +33,8 @@ export class Projectile extends Phaser.Physics.Arcade.Sprite{
     }
     
     movement() {
-        this.setVelocityX(Math.cos(this.rotation) * this.speed);
-        this.setVelocityY(Math.sin(this.rotation) * this.speed);
+        this.setVelocityX(Math.cos(this.rotation) * this.speed + this.ownerRelativeSpeedX);
+        this.setVelocityY(Math.sin(this.rotation) * this.speed + this.ownerRelativeSpeedY);
     }
 
     deathTimer() {

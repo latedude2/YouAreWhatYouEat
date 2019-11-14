@@ -62,6 +62,6 @@ export class Player extends Mob {
     }
 
     mouseClick() {
-        this.scene.spawnFriendlyProjectile();
+        this.scene.spawnFriendlyProjectile(this);
     }
 }

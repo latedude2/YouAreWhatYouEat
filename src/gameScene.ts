@@ -68,8 +68,11 @@ export class GameScene extends Phaser.Scene {
     }
   }
 
-  spawnFriendlyProjectile() {
-    this.friendlyProjectiles.add(new Projectile(this, this.player, "wall"));
+  spawnFriendlyProjectile(owner) {
+    let proj = new Projectile(this, this.player, "wall");
+    proj.ownerRelativeSpeedX = owner.body.velocity.x;
+    proj.ownerRelativeSpeedY = owner.body.velocity.y;
+    this.friendlyProjectiles.add(proj);
   }
 
   playerAndEnemyCollision(player, enemy) {
