@@ -10,14 +10,14 @@ export class Mob extends Phaser.Physics.Arcade.Sprite{
     sizeMultiplier: number = 1;
     trait: Trait;
 
-    //Damage
-    collisionDamage: number;
-    meleeDamage: number;
-    rangedDamage: number;
-
     //Health
     maxHealth: number = 1;
     currentHealth: number;
+
+    //Damage
+    collisionDamage: number = 0;
+    meleeDamage: number = 0;
+    rangedDamage: number = 0;
 
     //Movement
     acceleration: number = 100;
@@ -25,9 +25,7 @@ export class Mob extends Phaser.Physics.Arcade.Sprite{
     rotationalSpeed: number = 1 * Math.PI;
     rotationalSpeedDeg: number;
     rotationalTolerance: number;
-    mass: number = 1;
     drag: number = 50;
-
 
     //Mob visuals
     healthBarVisual: any;
