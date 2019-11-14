@@ -1,14 +1,13 @@
 import * as Phaser from 'phaser';
 import { GameScene } from '../gameScene';
-import { Trait } from '../Trait';
-
+import { Trait } from '../traits/Trait';
 
 export class Mob extends Phaser.Physics.Arcade.Sprite{
     scene : GameScene;
 
     //Mob attributes
     sizeMultiplier: number = 1;
-    trait: Trait;
+    traits: Trait[] = [];
 
     //Health
     maxHealth: number = 1;
@@ -20,8 +19,10 @@ export class Mob extends Phaser.Physics.Arcade.Sprite{
     rangedDamage: number = 0;
 
     //Movement
+    originalAcceleration = 100;
     acceleration: number = 100;
-    maxSpeed: number = 300;
+    originalMaxSpeed: number = 300;
+    maxSpeed: number;
     rotationalSpeed: number = 1 * Math.PI;
     rotationalSpeedDeg: number;
     rotationalTolerance: number;
@@ -44,7 +45,6 @@ export class Mob extends Phaser.Physics.Arcade.Sprite{
         this.setBounce(1);
         this.setCollideWorldBounds(true);
 
-        //this.bodyVisual = this.scene.add.circle(this.x, this.y, this.sizeMultiplier * 35, 0x6666ff);
         this.healthBarVisual = this.scene.add.rectangle(this.x, this.y, 80, 10, 0x6cf9aa);
         this.setValues();
     }
@@ -54,11 +54,13 @@ export class Mob extends Phaser.Physics.Arcade.Sprite{
         this.rotationalTolerance = this.rotationalSpeed * .03;
         this.currentHealth = this.maxHealth;
         this.setScale(this.sizeMultiplier);
+        this.maxSpeed = this.originalMaxSpeed;
         this.setMaxVelocity(this.maxSpeed);
-        //this.bodyVisual.radius = this.sizeMultiplier * 35;
     }
 
     update() {
+        this.resetOriginalProperties();
+        this.handleTraits();
         this.updateVisuals();
         this.limitSpeed();
     }
@@ -80,8 +82,6 @@ export class Mob extends Phaser.Physics.Arcade.Sprite{
     updateVisuals() {
         this.healthBarVisual.x = this.x;
         this.healthBarVisual.y = this.y - (this.healthBarOffset * this.sizeMultiplier);
-        /*this.bodyVisual.x = this.x;
-        this.bodyVisual.y = this.y;*/
     }
 
     limitSpeed()
@@ -92,7 +92,20 @@ export class Mob extends Phaser.Physics.Arcade.Sprite{
             let bod = this.body as unknown as Phaser.Physics.Arcade.Body;
             bod.setVelocityX(normalised.x * this.maxSpeed); 
             bod.setVelocityY(normalised.y * this.maxSpeed);
+        }
+    }
 
+    resetOriginalProperties()
+    {
+        this.maxSpeed = this.originalMaxSpeed;
+        this.originalAcceleration = this.originalAcceleration;
+    }
+
+    handleTraits(){
+        for(let trait of this.traits)
+        {
+            console.log("Handling traits")
+            trait.update();
         }
     }
 }
